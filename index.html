@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>胡巴可愛捏 · 7月24日</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ===== 日式侘寂 × 天空藍+銀白 ===== */
+:root{
+  --paper:#F8F7F3;        /* 和紙米白 */
+  --paper-warm:#F3EFE6;   /* 暖米白 */
+  --ink:#2E3A45;          /* 深墨藍黑 */
+  --ink-soft:#4A5A68;     /* 軟墨 */
+  --sky:#7FA8C9;          --sky:#7FA8C9;          /* 天空藍 */
+  --sky-deep:#5B8FB0;     --sky-deep:#5B8FB0;     --sky-deep:#5B8FB0;     /* 深天藍 */
+  --silver:#E6E9EC;       /* 銀白 */
+  --silver-line:#D4D9DD;  --silver-line:#D4D9DD;  --silver-line:#D4D9DD;  --silver-line:#D4D9DD;  /* 銀線 */
+  --gold-sparse:#B08D57; --gold-sparse:#B08D57;  --gold-sparse:#B08D57;  --gold-sparse:#B08D57;  /* 侘寂金(稀疏) */
+  --seal:#5B8FB0;         /* 印章藍(非朱紅,呼應天空藍) */
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{
+  width:100%;height:100%;overflow:hidden;position:fixed;top:0;left:0;
+  touch-action:none;overscroll-behavior:none;
+  font-family:"LXGW WenKai TC","KaiTi","DFKai-SB","Noto Serif TC",serif;
+  background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* 和紙紋理背景 */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(127,168,201,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 80%, rgba(230,233,236,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(243,239,230,0.4) 0%, transparent 70%),
+    url("assets/wabisabi-3-a.jpg") center/180px repeat;
+  opacity:0.5;
+}
+
+/* 極細網格(瑞士排版影響,但極淡) */
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(212,217,221,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,217,221,0.15) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 75%);
+}
+
+/* ===== 頁面容器 ===== */
+#scenes{position:relative;width:100%;height:100%;z-index:1;}
+.scene{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:6vw 8vw;overflow:hidden;
+  opacity:0;visibility:hidden;
+  transition:opacity 0.9s ease, visibility 0.9s ease;
+}
+.scene.active{opacity:1;visibility:visible;}
+
+/* ===== 通用文字样式 ===== */
+.h1{font-size:clamp(2.2rem,8vw,3.8rem);font-weight:700;letter-spacing:0.15em;line-height:1.4;text-align:center;color:var(--ink);}
+.h2{font-size:clamp(1.4rem,5vw,2.2rem);font-weight:400;letter-spacing:0.1em;line-height:1.7;text-align:center;color:var(--ink-soft);}
+.body-text{font-size:clamp(1rem,3.6vw,1.35rem);font-weight:300;letter-spacing:0.08em;line-height:2;text-align:center;color:var(--ink);max-width:20em;}
+.small-text{font-size:clamp(0.8rem,2.8vw,1rem);font-weight:300;letter-spacing:0.12em;color:var(--ink-soft);}
+
+/* 印章元素 */
+.seal{
+  display:inline-block;width:2.2em;height:2.2em;line-height:2.2em;
+  border:2px solid var(--seal);border-radius:4px;
+  font-size:clamp(0.7rem,2.5vw,0.9rem);font-weight:700;color:var(--seal);
+  text-align:center;letter-spacing:0.05em;
+  transform:rotate(-4deg);
+  opacity:0.85;
+  background:rgba(91,143,176,0.04);
+}
+
+/* 分隔線(銀白細線) */
+.divider{
+  width:clamp(60px,15vw,100px);height:1px;
+  background:linear-gradient(90deg,transparent,var(--silver-line),transparent);
+  margin:1.5em auto;
+}
+.divider-sky{
+  width:clamp(40px,10vw,60px);height:2px;
+  background:var(--sky);margin:1.2em auto;border-radius:1px;opacity:0.6;
+}
+
+/* ===== 封面 ===== */
+#cover{background:var(--paper);}
+#cover .h1{font-size:clamp(2.6rem,9vw,4.5rem);letter-spacing:0.2em;position:relative;}
+#cover .seal{position:absolute;top:-0.6em;right:-1.8em;font-size:clamp(0.6rem,2vw,0.8rem);}
+#cover .date{margin-top:2em;font-size:clamp(0.75rem,2.5vw,0.9rem);letter-spacing:0.2em;color:var(--ink-soft);}
+#cover .open-btn{
+  margin-top:3em;padding:0.9em 2.5em;
+  border:1.5px solid var(--sky-deep);border-radius:2px;
+  background:transparent;color:var(--sky-deep);
+  font-size:clamp(0.85rem,3vw,1rem);letter-spacing:0.2em;
+  cursor:pointer;transition:all 0.4s ease;
+  font-family:inherit;
+}
+#cover .open-btn:hover{background:var(--sky-deep);color:var(--paper-warm);}
+#cover .open-btn:active{transform:scale(0.97);}
+
+/* 封面背景素材 */
+#cover::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    url("assets/wabisabi-2-a.jpg") top right/200px no-repeat,
+    url("assets/wabisabi-4-a.jpg") bottom left/180px no-repeat;
+  opacity:0.18;mix-blend-mode:multiply;
+}
+#cover > *{position:relative;z-index:1;}
+
+/* ===== 正文頁 ===== */
+.text-page{background:var(--paper);}
+.text-page .body-text{position:relative;}
+.text-page .body-text::before{
+  content:"「";position:absolute;top:-0.4em;left:-0.8em;
+  font-size:clamp(2rem,6vw,3rem);color:var(--sky);opacity:0.3;font-weight:300;
+}
+.text-page .body-text::after{
+  content:"」";position:absolute;bottom:-0.6em;right:-0.8em;
+  font-size:clamp(2rem,6vw,3rem);color:var(--sky);opacity:0.3;font-weight:300;
+}
+
+/* 第2頁(開場) - 留白哲學 */
+#text-1{background:var(--paper);}
+#text-1 .h2{opacity:0.7;}
+
+/* 第3頁(正文) - 日常浪漫 */
+#text-2{background:var(--paper-warm);}
+#text-2 .body-text{line-height:2.2;}
+
+/* 第4頁(照片頁) */
+#photo-page{background:var(--paper);}
+.photo-frame{
+  position:relative;width:clamp(200px,55vw,300px);height:clamp(260px,65vw,380px);
+  margin-bottom:2em;overflow:hidden;
+  border:1px solid var(--silver-line);
+  box-shadow:0 8px 32px rgba(46,58,69,0.08);
+  transform:rotate(-1.5deg);
+}
+.photo-frame::before{
+  content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,0.5);pointer-events:none;z-index:2;
+}
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}
+.photo-frame:hover img{transform:scale(1.03);}
+.photo-note{
+  font-size:clamp(0.7rem,2.5vw,0.85rem);letter-spacing:0.15em;color:var(--ink-soft);
+  transform:rotate(-1.5deg);margin-top:0.5em;
+}
+
+/* 照片頁背景 */
+#photo-page::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("assets/wabisabi-3.jpg") center/cover no-repeat;opacity:0.15;
+}
+#photo-page > *{position:relative;z-index:1;}
+
+/* ===== 打字機頁(沉浸深藍) ===== */
+#typewriter-page{
+  background:linear-gradient(160deg,#0d1b2a 0%,#1B2838 40%,#243447 100%);
+  color:#F0F4F8;
+}
+#typewriter-page::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    url("assets/wabisabi-2.jpg") center/cover no-repeat;
+  opacity:0.12;mix-blend-mode:luminosity;
+}
+#typewriter-page > *{position:relative;z-index:1;}
+#typewriter-page .h2{color:#F0F4F8;font-weight:300;}
+#typewriter-page .typewriter-text{
+  font-size:clamp(1.3rem,4.5vw,2rem);font-weight:400;letter-spacing:0.12em;
+  line-height:2;min-height:4em;color:#F0F4F8;text-align:center;
+}
+#typewriter-page .typewriter-cursor{
+  display:inline-block;width:2px;height:1.2em;background:var(--sky);
+  margin-left:4px;vertical-align:text-bottom;
+  animation:blink 0.8s infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* 打字機頁銀白細線(呼應配色) */
+#typewriter-page .divider-sky{background:var(--sky);opacity:0.5;}
+
+/* ===== 末頁 ===== */
+#end-page{background:var(--paper);}
+#end-page .h2{line-height:2;font-weight:300;}
+#end-page .signature{
+  margin-top:2.5em;font-size:clamp(0.9rem,3vw,1.1rem);letter-spacing:0.2em;color:var(--ink-soft);
+}
+#end-page .seal{margin-left:0.5em;transform:rotate(3deg);}
+
+/* 末頁背景 */
+#end-page::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    url("assets/wabisabi-3-a.jpg") top left/150px no-repeat,
+    url("assets/wabisabi-2-a.jpg") bottom right/170px no-repeat;
+  opacity:0.15;mix-blend-mode:multiply;
+}
+#end-page > *{position:relative;z-index:1;}
+
+/* ===== Next 按鈕 ===== */
+#next-btn{
+  position:fixed;bottom:2.5vh;left:50%;transform:translateX(-50%);
+  z-index:100;padding:0.7em 2em;
+  border:1.5px solid var(--sky-deep);border-radius:2px;
+  background:rgba(248,247,243,0.85);backdrop-filter:blur(6px);
+  color:var(--sky-deep);font-size:clamp(0.8rem,2.8vw,0.95rem);
+  letter-spacing:0.2em;cursor:pointer;
+  font-family:inherit;
+  transition:all 0.4s ease;
+  display:none;
+}
+#next-btn:hover{background:var(--sky-deep);color:var(--paper-warm);}
+#next-btn:active{transform:translateX(-50%) scale(0.96);}
+#next-btn.visible{display:block;}
+
+/* ===== 導航點 ===== */
+#nav-dots{
+  position:fixed;bottom:1vh;left:50%;transform:translateX(-50%);
+  z-index:100;display:flex;gap:8px;
+}
+#nav-dots .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--silver-line);transition:all 0.4s ease;
+}
+#nav-dots .dot.active{background:var(--sky);width:18px;border-radius:3px;}
+
+/* ===== 入場動畫 ===== */
+.scene.active .anim{animation:fadeUp 0.9s ease both;}
+.scene.active .anim-d1{animation-delay:0.15s;}
+.scene.active .anim-d2{animation-delay:0.3s;}
+.scene.active .anim-d3{animation-delay:0.45s;}
+.scene.active .anim-d4{animation-delay:0.6s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* ===== 音樂按鈕 ===== */
+#music-btn{
+  position:fixed;top:1.5vh;right:2vw;z-index:200;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--silver-line);background:rgba(248,247,243,0.7);
+  backdrop-filter:blur(4px);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--ink-soft);transition:all 0.3s ease;
+}
+#music-btn:hover{border-color:var(--sky);color:var(--sky);}
+#music-btn.playing{border-color:var(--sky);color:var(--sky);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(127,168,201,0.3);}50%{box-shadow:0 0 0 8px rgba(127,168,201,0);}}
+
+/* ===== 響應式 ===== */
+@media(max-width:619px){
+  .scene{padding:8vw 7vw;}
+  .photo-frame{width:clamp(180px,60vw,240px);height:clamp(240px,70vw,320px);}
+  #cover .h1{font-size:clamp(2.2rem,10vw,3.2rem);}
+  #typewriter-page .typewriter-text{font-size:clamp(1.1rem,5vw,1.5rem);}
+}
+@media(min-width:620px) and (max-width:1100px){
+  .scene{padding:6vw 10vw;}
+  .photo-frame{width:clamp(220px,45vw,300px);height:clamp(280px,55vw,380px);}
+}
+@media(min-width:1101px){
+  .scene{padding:5vw 12vw;}
+  .body-text{font-size:1.25rem;max-width:24em;}
+  .photo-frame{width:300px;height:380px;}
+}
+
+/* 減少動畫(無障礙) */
+@media(prefers-reduced-motion:reduce){
+  .scene,.scene.active .anim{animation-duration:0.01ms;transition-duration:0.01ms;}
+  #typewriter-page .typewriter-cursor{animation:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- 音樂按鈕 -->
+<button id="music-btn" onclick="toggleMusic()" aria-label="音樂開關">♪</button>
+
+<!-- 場景容器 -->
+<div id="scenes">
+
+  <!-- 1. 封面 -->
+  <section class="scene" id="cover" data-idx="0">
+    <h1 class="h1 anim">胡巴，可愛捏<span class="seal">心</span></h1>
+    <div class="divider anim anim-d1"></div>
+    <p class="date anim anim-d2">一封寫給你的信 · 7月24日</p>
+    <button class="open-btn anim anim-d3" onclick="openLetter()">Open the Letter</button>
+  </section>
+
+  <!-- 2. 開場(留白) -->
+  <section class="scene text-page" id="text-1" data-idx="1">
+    <h2 class="h2 anim">今天天氣很好。</h2>
+    <div class="divider-sky anim anim-d1"></div>
+    <h2 class="h2 anim anim-d2">適合寫一封沒什麼用的信。</h2>
+  </section>
+
+  <!-- 3. 正文(日常浪漫) -->
+  <section class="scene text-page" id="text-2" data-idx="2">
+    <p class="body-text anim">認識你之後我學會一件事：<br>把「胡巴好可愛」五個字，<br>每天在心裡默念一百遍，<br>才能忍住不當面說出來。</p>
+  </section>
+
+  <!-- 4. 照片頁 -->
+  <section class="scene" id="photo-page" data-idx="3">
+    <div class="photo-frame anim">
+      <img src="assets/photo1.jpg" alt="胡巴的生活照" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;background:var(--silver);color:var(--ink-soft);font-size:0.9rem;letter-spacing:0.1em;&quot;>胡巴的可愛此處應有圖</div>'">
+    </div>
+    <p class="photo-note anim anim-d1">夏天的證據。</p>
+  </section>
+
+  <!-- 5. 打字機頁(沉浸深藍) -->
+  <section class="scene" id="typewriter-page" data-idx="4">
+    <h2 class="h2 anim">你知道嗎——</h2>
+    <div class="divider-sky anim anim-d1"></div>
+    <div class="typewriter-text anim anim-d2" id="typewriter"></div>
+    <span class="typewriter-cursor anim anim-d3"></span>
+  </section>
+
+  <!-- 6. 收尾(真诚) -->
+  <section class="scene text-page" id="text-3" data-idx="5">
+    <p class="body-text anim">認真講。<br>跟你在一起的時候，<br>時間過得特別快，人也特別笨。<br>笨到只會說：可愛，喜歡，想你。</p>
+  </section>
+
+  <!-- 7. 末頁(只是看完) -->
+  <section class="scene" id="end-page" data-idx="6">
+    <h2 class="h2 anim">這封信沒有按鈕，沒有連結。</h2>
+    <div class="divider anim anim-d1"></div>
+    <h2 class="h2 anim anim-d2">看完，懂就好了。</h2>
+    <p class="signature anim anim-d3">—— 我 · 7月24日 <span class="seal">靜</span></p>
+  </section>
+
+</div>
+
+<!-- Next 按鈕 -->
+<button id="next-btn" onclick="nextScene()">Next ❦</button>
+
+<!-- 導航點 -->
+<div id="nav-dots"></div>
+
+<!-- 音樂 -->
+<audio id="bgm" loop preload="none">
+  <source src="assets/bgm.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ===== 場景導航 =====
+const scenes=document.querySelectorAll('.scene');
+const nextBtn=document.getElementById('next-btn');
+const navDots=document.getElementById('nav-dots');
+let currentIdx=0;
+let typewriterDone=false;
+let typewriterTimer=null;
+
+// 建立導航點
+scenes.forEach((s,i)=>{
+  const dot=document.createElement('div');
+  dot.className='dot'+(i===0?' active':'');
+  dot.addEventListener('click',()=>goTo(i));
+  navDots.appendChild(dot);
+});
+
+function updateDots(){
+  document.querySelectorAll('#nav-dots .dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===currentIdx);
+  });
+}
+
+function showScene(idx){
+  scenes.forEach((s,i)=>s.classList.toggle('active',i===currentIdx));
+  // Next 按鈕:封面(0)/末頁(6)隱藏,其他顯示
+  const hideNext=(idx===0||idx===6);
+  nextBtn.classList.toggle('visible',!hideNext);
+  currentIdx=idx;
+  updateDots();
+  // 打字機頁自動啟動
+  if(idx===4&&!typewriterDone){startTypewriter();}
+}
+
+function goTo(idx){
+  if(idx<0||idx>=scenes.length)return;
+  showScene(idx);
+}
+
+function nextScene(){
+  // 打字機頁:若打字中,快速完成
+  if(currentIdx===4&&!typewriterDone){
+    clearTimeout(typewriterTimer);
+    document.getElementById('typewriter').textContent='胡巴天下第一可愛。不接受反駁。';
+    typewriterDone=true;
+    return;
+  }
+  if(currentIdx<scenes.length-1)showScene(currentIdx+1);
+}
+
+function openLetter(){
+  // 首次點擊播放音樂
+  const bgm=document.getElementById('bgm');
+  bgm.volume=0.5;
+  bgm.play().catch(()=>{});
+  document.getElementById('music-btn').classList.add('playing');
+  showScene(1);
+}
+
+// ===== 打字機效果 =====
+const typeLines=['胡巴天下第一可愛。','不接受反駁。'];
+function startTypewriter(){
+  const el=document.getElementById('typewriter');
+  el.textContent='';
+  typewriterDone=false;
+  let lineIdx=0,charIdx=0;
+  function tick(){
+    if(lineIdx>=typeLines.length){typewriterDone=true;return;}
+    const line=typeLines[lineIdx];
+    if(charIdx<line.length){
+      el.textContent+=line[charIdx];
+      charIdx++;
+      typewriterTimer=setTimeout(tick,90+Math.random()*40);
+    }else{
+      el.textContent+='\n';
+      lineIdx++;charIdx=0;
+      typewriterTimer=setTimeout(tick,400);
+    }
+  }
+  tick();
+}
+
+// ===== 音樂控制 =====
+function toggleMusic(){
+  const bgm=document.getElementById('bgm');
+  const btn=document.getElementById('music-btn');
+  if(bgm.paused){bgm.play().catch(()=>{});btn.classList.add('playing');}
+  else{bgm.pause();btn.classList.remove('playing');}
+}
+
+// ===== 鍵盤支援 =====
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();nextScene();}
+  if(e.key==='ArrowLeft'){e.preventDefault();if(currentIdx>1)showScene(currentIdx-1);}
+});
+
+// ===== 觸控滑動支援 =====
+let touchStartY=0;
+document.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dy=e.changedTouches[0].clientY-touchStartY;
+  if(dy<-40)nextScene(); // 上滑下一頁
+},{passive:true});
+
+// ===== 初始化 =====
+showScene(0);
+</script>
+</body>
+</html>
