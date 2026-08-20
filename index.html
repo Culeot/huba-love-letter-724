@@ -295,6 +295,7 @@ body::after{
     <div class="divider anim anim-d1"></div>
     <p class="date anim anim-d2">一封寫給你的信 · 7月24日</p>
     <button class="open-btn anim anim-d3" onclick="openLetter()">Open the Letter</button>
+    <p class="anim anim-d4" id="music-hint" style="font-size:clamp(0.65rem,2vw,0.75rem);color:var(--ink-soft);margin-top:1em;letter-spacing:0.1em;">♪ 點擊開啟音樂</p>
   </section>
 
   <!-- 2. 開場(留白) -->
@@ -347,7 +348,7 @@ body::after{
 <div id="nav-dots"></div>
 
 <!-- 音樂 -->
-<audio id="bgm" loop preload="none">
+<audio id="bgm" loop preload="auto" crossorigin="anonymous">
   <source src="assets/bgm.mp3" type="audio/mpeg">
 </audio>
 
@@ -402,11 +403,15 @@ function nextScene(){
 }
 
 function openLetter(){
-  // 首次點擊播放音樂
+  // 首次點擊播放音樂(帶重試機制,适配移動端自動播放策略)
   const bgm=document.getElementById('bgm');
   bgm.volume=0.5;
-  bgm.play().catch(()=>{});
+  const tryPlay=()=>{ bgm.play().catch(e=>{ setTimeout(tryPlay,300); }); };
+  tryPlay();
   document.getElementById('music-btn').classList.add('playing');
+  // 移動端:隱藏音樂提示
+  const hint=document.getElementById('music-hint');
+  if(hint)hint.style.display='none';
   showScene(1);
 }
 
@@ -457,6 +462,17 @@ document.addEventListener('touchend',e=>{
 
 // ===== 初始化 =====
 showScene(0);
+
+// 移動端音頻解鎖:首次任意觸摸/點擊嘗試靜態播放
+const bgmEl=document.getElementById('bgm');
+['touchstart','click','touchend'].forEach(ev=>{
+  document.addEventListener(ev,()=>{
+    if(bgmEl.paused && !bgmEl.dataset.unlocked){
+      bgmEl.dataset.unlocked='1';
+      bgmEl.play().catch(()=>{});
+    }
+  },{once:true,passive:true});
+});
 </script>
 </body>
 </html>
